@@ -1,0 +1,35 @@
+{% extends "03base.html" %}
+{# {% extends *filename* %} 继承模板，在子模板中会把父模板的所有内容都继承到子模板中，减少大量重复代码 #}
+{# {% block *name* %}...{% end %} 被词语句包裹的代码块在子模板中可以被重写，覆盖父模板中的 #}
+{% block title %} Extend {% end %}
+{% block body %}
+    {% if username %}
+    欢迎用户 {{ username }} 登录 <br>
+    <img src="/static/images/b.jpg" width="250" height="250"> <br>
+    {% else %}
+    您还没有登录
+    {% end %}
+    {% include 05include.html %}
+    {# {% include *filename*%} include 可以导入一些其他的模板文件，一般使用 include 的时候，模板文件中不使用 block 块 #}
+    {# 函数和模块的导入 #}
+    {{ haha() }}
+    <br>
+    {% set c = cal() %}
+    {{ c.sum(5, 9) }}
+    {# {{ cal.sum(5, 9) }}#}
+    <br>
+{#    {% import time %}#}
+{#    {{ time.time() }}#}
+{#    <br>#}
+    ui module: {% module UiModule() %}
+    <br>
+    method: {{ ui_methods1() }}
+    <br>
+    {# {% include '06ad.html' %}#}
+{#    {% module Advertisement() %}#}
+{#    <br>#}
+{#    {% apply upper %}#}
+{#    ok abc Echo#}
+{#    {% end %}#}
+
+{% end %}

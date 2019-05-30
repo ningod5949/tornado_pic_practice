@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    index
+{% end %}
+
+{% block body %}
+index <br>
+{% for p in posts %}
+<img src="{{ static_url(p.image_url) }}" /> <br>
+{% end %}
+{% end %}

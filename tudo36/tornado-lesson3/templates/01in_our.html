@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>in out</title>
+</head>
+<body>
+{# {% autoescape None %}  #}
+{# 整个模版去转义 #}
+Template works! Got {{ name }} <br>
+{{ 1 + 1 }} <br>
+{{ datetime.datetime.now() }} <br>
+{{ time.time() }} <br>
+{{! time.time() }} <br>
+{% if 1 %}
+This is if.
+{% end %} <br>
+{# 注释 #}
+{% for i in namelist %}
+This is if. If pass {{ i }} <br>
+{% end %} <br>
+{{ atga }} <br>
+{% raw atga %} <br>
+{{ escape(atga) }} <br>
+<img src="{{ static_url('a.jpg') }}" width="250" height="250"> <br>
+<img src="http://127.0.0.1:8000/static/a.jpg" width="250" height="250"> <br>
+<img src="/static/a.jpg" width="250" height="250"> <br>
+<img src="/image/a.jpg" width="250" height="250"> <br>
+<img src="{{ static_url('image/b.jpg') }}" width="250" height="250"> <br>
+<img src="{{ static_url('b.jpg') }}" width="250" height="250"> <br>
+</body>
+</html>

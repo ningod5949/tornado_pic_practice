@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post template</title>
+</head>
+<body>
+    {% if msg %}
+    msg: {{ msg }}<br>
+    {% end %}
+    next: {{ next_url }} <br>
+{#    {% if username %}#}
+    {% if current_user %}
+{#    My name is {{ username }}.<br>#}
+    My name is {{ current_user }}.<br>
+    My age is .
+    <br>
+    {% else %}
+    please login
+    <form action="/temp" enctype="multipart/form-data" method="post">
+        Username: <input type="text" name="username" /><br>
+        Password: <input type="text" name="password" /><br>
+        <input type="text" name="next" hidden value="{{ next_url }}" /><br>
+        <input type="submit" />
+    </form>
+    {% end %}
+</body>
+</html>

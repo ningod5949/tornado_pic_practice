@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post template</title>
+</head>
+<body>
+    {% if username != 'no' %}
+    My name is {{ username }}.
+    My age is {{ age }}.
+    <br>
+    {% else %}
+    please login
+    <form action="/temp" enctype="multipart/form-data" method="post">
+        <input type="text" name="username" />
+        <input type="text" name="age" />
+        <input type="submit" />
+    </form>
+    {% end %}
+</body>
+</html>

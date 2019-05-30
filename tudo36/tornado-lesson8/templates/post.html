@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    post
+{% end %}
+
+{% block body %}
+post id {{  post.id }} upload by {{  post.user.name }}<br>
+<img src="{{ static_url(post.image_url) }}" />
+{% end %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>in and out</title>
+</head>
+<body>
+{#    {% autoescape None %}#}
+{#    1: Template works! Got {{ name }} <br>#}
+{#    2: {{ 1 + 1 }}<br>#}
+{#    3: {{ datetime.datetime.now() }}<br>#}
+{#    4: {{ time.time() }}<br>#}
+{#    5: {{! time.time() }}<br>#}
+{#    6: {% if 1 %}<br>#}
+{#    7: This is f.<br>#}
+{#    8: {% end %}<br>#}
+{#    9: {# 这是注释 <br>#}
+{#    10: {% for i in namelist %}<br>#}
+{#    11: This is {{ i }}.<br>#}
+{#    12: {% end %}<br>#}
+{#    13: {{ atga }}<br>#}
+{#    14: {% raw atga %}<br>#}
+{#    15: {{ escape(atga) }}<br>#}
+<img src="{{ static_url('a.jpg') }}" /><br>
+<img src="static/a.jpg"/> <br>
+<img src="{{ static_url('image/b.jpg') }}"/><br>
+</body>
+</html>

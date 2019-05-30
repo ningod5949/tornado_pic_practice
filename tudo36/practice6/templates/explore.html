@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    explore page
+{% end %}
+
+{% block body %}
+    <h3>
+        explore page:
+        <small class="text-muted">thumb pic</small>
+    </h3>
+
+    {% for p in posts %}
+    <a href="{{ '/post/{}'.format(p.id) }}">
+        <img src="{{ static_url(p.thumb_url) }}" alt="Responsive image" class="img-fluid img-thumbnail " />
+    </a>
+    {% end %}
+{% end %}

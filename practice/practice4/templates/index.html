@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+This is index
+{% end %}
+
+{% block body %}
+    {% if username %}
+    欢迎用户 {{ username }} 登录 <br>
+    {% else %}
+    你还没有登录 <br>
+    {% end %}
+
+{% end %}

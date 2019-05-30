@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{#    {% autoescape %}#}
+    <div>我被调用了</div>
+    my name is {{ username }} <br>
+    {{ 1 + 1 }} <br>
+    {{ time.time() }}<br>
+    {{! time.time() }}<br>
+    {% if username %}
+    我被执行
+    {% end %}
+    <br>
+    {{ taga }} <br>
+    {% raw taga %}
+    <br>
+    {{ escape(taga) }} <br>
+
+    <img src="{{ static_url('4.jpg') }}" width="200" height="200"> <br>
+    <img src="http://127.0.0.1:8000/static/3.jpg" width="200" height="200"> <br>
+    <img src="/static/3.jpg" width="200" height="200"> <br>
+    <img src="{{ static_url('images/1.jpg') }}" width="200" height="200" ><br>
+    <img src="/image/images/2.jpg" width="200" height="200" ><br>
+</body>
+</html>

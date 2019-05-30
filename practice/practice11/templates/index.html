@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    index page
+{% end %}
+
+{% block body %}
+    <div class="alert alert-danger" role="alert">
+        index <br>
+        A simple danger alert—check it out!
+    </div>
+
+        <div class="alert alert-success" role="alert">
+            A simple success alert—check it out!
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                {% for p in posts %}
+                     <a href="{{ '/post/{}'.format(p.id) }}">
+                        <img src="{{ static_url(p.image_url) }}" alt="" class="img-fluid" /> <br>
+                     </a><br>
+                {% end %}
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="https://code.z01.com/v4/assets/img/bootstrap-stack.png"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Ningod in China</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <figure class="figure">
+                    <img src="https://code.z01.com/v4/assets/img/bootstrap-stack.png"
+                         class="figure-img img-fluid rounded" alt="...">
+                    <figcaption class="figure-caption">
+                        My name is xuning.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-lg-4">8-6-4</div>
+        </div>
+
+
+
+{% end %}

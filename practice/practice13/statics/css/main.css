@@ -1,0 +1,10 @@
+.img-thumbnail{
+    padding: 0.25rem;
+    background-color: red;
+    border: 1px solid greenyellow;
+    border-radius: 0.25rem;
+    height: fit-content;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+}

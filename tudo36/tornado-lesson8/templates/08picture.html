@@ -1,0 +1,11 @@
+{% extends '03base.html' %}
+
+{% block title %}
+    upload page
+{% end %}
+
+{% block body %}
+{% for n in new_names %}
+ <img src="{{ static_url('upload/{}'.format(n)) }}" />
+{% end %}
+{% end %}
