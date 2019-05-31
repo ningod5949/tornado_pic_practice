@@ -1,8 +1,10 @@
 from datetime import datetime
 from sqlalchemy import (Column, Integer, String, DateTime, ForeignKey)
-from models.db import Base
+from models.db import Base, Session
+from sqlalchemy.orm import relationship
 
 
+session = Session()
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, autoincrement=True)
