@@ -15,12 +15,31 @@ class Application(tornado.web.Application):
             (r'/', main.IndexHandler),
             (r'/explore', main.ExploreHandler),
             (r'/post/(?P<post_id>[0-9]+)', main.PostHandler),
+            (r'/upload', main.UploadHandler),
             (r'/signup', account.RegisterHandler),
-        ]
+            (r'/login', account.LoginupHandler),
+            ]
         settings = dict(
             debug=debug,
             template_path='templates',
             static_path='statics',
+            cookie_secret="ashfhuiafhewuisdfsdff",
+            # xsrf_cookies=True,
+            login_url='/login',
+            pycket={
+                'engine': 'redis',  # 使用redis这个引擎存储
+                'stronge': {
+                    'host': 'localhost',
+                    'port': 6379,
+                    # 'password' : '',
+                    'db_sessions': 5,  # redis db index
+                    # 'db_notifications': 11,
+                    'max_connection': 2 ** 30,
+                },
+                'cookies': {
+                    'expires_days': 30,
+                },
+            },
         )
         super().__init__(handles, **settings)
 
