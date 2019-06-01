@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    explore page
+    explore page <br>
 {% end %}
 
 {% block body %}
+
     explore <br>
     {% for p in posts %}
     <a href="{{ '/post/{}'.format(p.id) }}">
-        <img src="{{ static_url(p.thumb_url) }}" alt="" class="img-thumbnail" /> <br>
+        <img src="{{ static_url(p.thumb_url) }}" alt="" class="img-thumbnail"  style="width=200px, height=200px,object-fit: cover"/>
     </a>
     {% end %}
 {% end %}

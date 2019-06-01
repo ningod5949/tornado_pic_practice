@@ -1,8 +1,9 @@
 import tornado.web
-from test1.utils.account import register, authenticate
+from test1.utils.account import authenticate
 from .main import Basehandler
 
-class RegisterHandler(tornado.web.RequestHandler):
+
+class RegisterHandler(Basehandler):
     def get(self):
         self.render('register.html')
 
@@ -13,7 +14,7 @@ class RegisterHandler(tornado.web.RequestHandler):
         password2 = self.get_argument('password2', '')
 
         if username and (password1 == password2):
-            register(username, password1)
+            self.orm.register(username, password1)
             self.write('signup ok')
         else:
             self.write('bad username/password')
@@ -43,3 +44,9 @@ class LoginupHandler(Basehandler):
                     self.redirect('/')
             else:
                 self.redirect('/login?msg=password wrong')
+
+
+class LogoutHandler(Basehandler):
+    def get(self):
+        self.session.delete("tudo_user")
+        self.render('logout.html')
