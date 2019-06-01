@@ -4,5 +4,10 @@
 {% end %}
 
 {% block body %}
-    explore
+    explore <br>
+    {% for p in posts %}
+    <a href="{{ '/post/{}'.format(p.id) }}">
+        <img src="{{ static_url(p.thumb_url) }}" alt=""> <br>
+    </a>
+    {% end %}
 {% end %}
