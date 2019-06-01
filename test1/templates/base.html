@@ -2,19 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>
-        {% block title %}
-            title page
-        {% end %}
-    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} Base {% end %}</title>
+    <link rel="shortcut icon" href="{{ static_url('images/favicon.ico') }}">
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="{{ static_url('css/bootstrap.css') }}">
+{#    <link rel="stylesheet" href="{{ static_url('css/bootstrap.css') }}">#}
+{#    <link rel="stylesheet" href="static/css/bootstrap.css">#}
 </head>
 <body>
     {% if current_user %}
     <h2>当前登录的用户： {{ current_user }}</h2>
     <hr>
     {% end %}
-    {% block body %}
-        body
-    {% end %}
+    <div class="container">
+    {% block body %} this is tornado {% end %}
+    </div>
+    <!-- jQuery文件 -->
+    <script src="{{ static_url('js/jquery-3.3.1.slim.min.js') }}"></script>
+    <!-- Popper文件 -->
+    <script src="{{ static_url('js/popper.min.js') }}"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="{{ static_url('js/bootstrap.js') }}"></script>
 </body>
 </html>

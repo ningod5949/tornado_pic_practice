@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}
     explore page
 {% end %}
@@ -7,7 +8,7 @@
     explore <br>
     {% for p in posts %}
     <a href="{{ '/post/{}'.format(p.id) }}">
-        <img src="{{ static_url(p.thumb_url) }}" alt=""> <br>
+        <img src="{{ static_url(p.thumb_url) }}" alt="" class="img-thumbnail" /> <br>
     </a>
     {% end %}
 {% end %}

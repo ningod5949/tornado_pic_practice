@@ -6,11 +6,22 @@
 {% if msg %}
 Error: {{ msg }}
 {% end %}
+    <form action="/login" enctype="multipart/form-data" method="post">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Username</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                   aria-describedby="basic-addon1" name="username">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Password</span>
+            </div>
 
-<form action="/login" enctype="multipart/form-data" method="post">
-    Username : <input type="text" name="username" /><br>
-    Password : <input type="password" name="password" /><br>
-
-    <input type="submit" />
-</form>
+            <input type="password" class="form-control" placeholder="Password" aria-label="Password"
+                   aria-describedby="basic-addon1" name="pssword">
+        </div>
+        <button type="button" class="btn btn-primary">提交</button>
+    </form>
 {% end %}
