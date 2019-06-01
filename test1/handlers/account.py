@@ -1,4 +1,3 @@
-import tornado.web
 from test1.utils.account import authenticate
 from .main import Basehandler
 

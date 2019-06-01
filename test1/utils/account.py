@@ -1,6 +1,6 @@
 import hashlib
 from models.auth import User, Post
-from models.db import Session
+
 
 
 def hashed(text):

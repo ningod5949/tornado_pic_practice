@@ -35,7 +35,7 @@ class ExploreHandler(Basehandler):
 class PostHandler(Basehandler):
     def get(self, post_id):
         post = self.orm.get_post(post_id)
-        user = post.user
+        # user = post.user
         print('post return')
         if not post:
             self.write('wrong id {}'.format(post_id))
@@ -61,3 +61,20 @@ class UploadHandler(Basehandler):
                                         up_img.thumb_url,
                                         self.current_user)
         self.redirect('/post/{}'.format(post_id))
+
+
+class ProfileHander(Basehandler):
+    """
+    用户的档案页面
+    """
+    @tornado.web.authenticated
+    def get(self):
+        name = self.get_argument('name', None)
+        if not name:
+            name = self.current_user
+        user = self.orm.get_user(name)
+        if user:
+            like_posts = self.orm.like_posts_for(name)
+            self.render('profile.html', user=user, like_posts=like_posts)
+        else:
+            self.write('user error')
