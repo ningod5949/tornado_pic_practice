@@ -48,8 +48,8 @@ var updater = {
         var existing = $("#m" + message.id);
         if (existing.length > 0) return;
         var node = $(message.html);
-        node.hide();
+        // node.hide();
         $("#inbox").append(node);  // 添加消息 DIV 到页面
-        node.slideDown();
+        // node.slideDown();
     }
 };
