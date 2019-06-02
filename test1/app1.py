@@ -2,7 +2,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.options
 from tornado.options import define, options
-from test1.handlers import main, account
+from test1.handlers import main, account, chat
 
 
 define('port', default='8000', help='Listening port', type=int)
@@ -17,9 +17,13 @@ class Application(tornado.web.Application):
             (r'/post/(?P<post_id>[0-9]+)', main.PostHandler),
             (r'/upload', main.UploadHandler),
             (r'/profile', main.ProfileHander),
+            (r'/like', main.LikeH),
             (r'/signup', account.RegisterHandler),
             (r'/login', account.LoginupHandler),
             (r'/logout', account.LogoutHandler),
+            (r'/ws/echo', chat.EchoWebSocket),
+            (r'/ws', chat.ChatWSHandler),
+            (r'/room', chat.RoomHandler),
             ]
         settings = dict(
             debug=debug,

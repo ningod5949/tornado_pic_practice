@@ -35,12 +35,14 @@ class ExploreHandler(Basehandler):
 class PostHandler(Basehandler):
     def get(self, post_id):
         post = self.orm.get_post(post_id)
+        count = self.orm.count_like_for(post_id)
         # user = post.user
         print('post return')
         if not post:
             self.write('wrong id {}'.format(post_id))
         else:
-            self.render('post.html', post=post)
+            count = self.orm.count_like_for(post_id)
+            self.render('post.html', post=post, count=count)
 
 
 class UploadHandler(Basehandler):
@@ -78,3 +80,12 @@ class ProfileHander(Basehandler):
             self.render('profile.html', user=user, like_posts=like_posts)
         else:
             self.write('user error')
+
+
+class LikeH(Basehandler):
+    def post(self):
+        post_id = self.get_argument('post_id', '')
+        name = self.get_argument('username', '')
+        print(post_id, name)
+        self.write({'status': 'ok',
+                    'count': 33})

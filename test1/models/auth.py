@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import (Column, Integer, String, DateTime, ForeignKey)
+from sqlalchemy import (Column, Integer, String, DateTime, ForeignKey, Boolean)
 from models.db import Base, Session
 from sqlalchemy.sql import exists
 from sqlalchemy.orm import relationship
@@ -49,6 +49,7 @@ class Like(Base):
     __tablename__ = 'likes'
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False, primary_key=True)
     post_id = Column(Integer, ForeignKey('posts.id'), nullable=False, primary_key=True)
+    id_delete = Column(Boolean, default=False)
 
 if __name__ == '__main__':
     Base.metadata.create_all()

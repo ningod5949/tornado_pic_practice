@@ -7,8 +7,9 @@
     <link rel="shortcut icon" href="{{ static_url('images/favicon.ico') }}">
     <!-- Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="{{ static_url('css/bootstrap.css') }}">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+{#    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">#}
     <link rel="stylesheet" href="{{ static_url('css/main.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/font-awesome.css') }}">
 {#    <link rel="stylesheet" href="{{ static_url('css/bootstrap.css') }}">#}
 {#    <link rel="stylesheet" href="static/css/bootstrap.css">#}
 </head>
@@ -58,10 +59,14 @@
     {% block body %} this is tornado {% end %}
     </div>
     <!-- jQuery文件 -->
-    <script src="{{ static_url('js/jquery-3.3.1.slim.min.js') }}"></script>
+    <script src="{{ static_url('js/jquery.min.js') }}"></script>
     <!-- Popper文件 -->
     <script src="{{ static_url('js/popper.min.js') }}"></script>
     <!-- Bootstrap 核心 JavaScript 文件 -->
     <script src="{{ static_url('js/bootstrap.js') }}"></script>
+{% block extra_script %}
+
+{% end %}
+
 </body>
 </html>
