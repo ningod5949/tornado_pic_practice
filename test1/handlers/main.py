@@ -1,8 +1,12 @@
+import logging
 import tornado.web
 from pycket.session import SessionMixin
 from test1.utils.account import HandlerORM
 from test1.utils.photo import UploadImage
 from models.db import Session
+
+
+logger = logging.getLogger('tudo.log')
 
 
 class Basehandler(tornado.web.RequestHandler, SessionMixin):
@@ -11,11 +15,12 @@ class Basehandler(tornado.web.RequestHandler, SessionMixin):
 
     def prepare(self):
         self.db_session = Session()
-        print('db_session instance')
+        logger.info('db_session instance %s' % self)
         self.orm = HandlerORM(self.db_session)
+
     def on_finish(self):
         self.db_session.close()
-        print('db_session close')
+        logger.info('db_session close')
 
 
 class IndexHandler(Basehandler):
@@ -27,6 +32,7 @@ class IndexHandler(Basehandler):
 
 
 class ExploreHandler(Basehandler):
+    @tornado.web.authenticated
     def get(self):
         posts = self.orm.get_all_posts()
         self.render('explore.html', posts=posts)
