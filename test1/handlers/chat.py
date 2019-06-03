@@ -5,9 +5,11 @@ from pycket.session import SessionMixin
 from tornado.httpclient import AsyncHTTPClient
 import tornado.websocket
 import tornado.web
+import tornado.gen
 import tornado.escape
 from tornado.ioloop import IOLoop
 from .main import Basehandler
+from utils.photo import UploadImage
 
 
 logger = logging.getLogger('tudo.log')
@@ -82,6 +84,7 @@ class ChatWSHandler(tornado.websocket.WebSocketHandler, SessionMixin):
         print("close ws connection: {}".format(self))
         ChatWSHandler.waiters.remove(self)
 
+    @tornado.gen.coroutine
     def on_message(self, message):
         """
         WebSocket 服务端收到消息自动调用
@@ -93,18 +96,29 @@ class ChatWSHandler(tornado.websocket.WebSocketHandler, SessionMixin):
         msg = parsed['body']
 
         if msg and msg.startswith('http://'):
+            temp_chat = make_data(self, 'url processing {}'.format(msg))
+            self.write_message(temp_chat)
             client = AsyncHTTPClient()
-            save_api_url = 'http://127.0.0.1:8000/save?save_url={}&name={}&is_from=room'.format(msg, self.current_user)
-            logger.info(save_api_url)
-            IOLoop.current().spawn_callback(client.fetch,
-                                            save_api_url,
-                                            request_timeout=50)
-            reply_msg = "user {}, url {} is processing".format(
-                self.current_user,
-                msg,
-            )
-            chat = make_data(self, reply_msg)
-            self.write_message(chat)   # 只给当前用户发送
+            resp = yield client.fetch(msg)
+            up_img = UploadImage('x.jpg', self.settings['static_path'])
+            up_img.save_upload(resp.body)
+            reply_msg = 'upload photo from url {}'.format(msg)
+            chat = make_data(self, reply_msg, username=self.current_user, img_url=up_img.image_url)
+            ChatWSHandler.send_updates(chat)
+            # client = AsyncHTTPClient()
+            # save_api_url = 'http://127.0.0.1:8000/save?save_url={}&name={}&is_from=room'.format(msg, self.current_user)
+            # logger.info(save_api_url)
+            # IOLoop.current().spawn_callback(client.fetch,
+            #                                 save_api_url,
+            #                                 request_timeout=50)
+            # reply_msg = "user {}, url {} is processing".format(
+            #     self.current_user,
+            #     msg,
+            # )
+            # chat = make_data(self, reply_msg)
+            # self.write_message(chat)   # 只给当前用户发送
+
+
         else:
         # chat = {
         #     'id': str(uuid.uuid4()),
@@ -114,6 +128,7 @@ class ChatWSHandler(tornado.websocket.WebSocketHandler, SessionMixin):
         # }
         #
         # chat['html'] =  tornado.escape.to_basestring(self.render_string('message.html', chat = chat))
+            logger.warning(locals())
             chat = make_data(self, msg, self.current_user)
             ChatWSHandler.update_history(chat)
             ChatWSHandler.send_updates(chat)
