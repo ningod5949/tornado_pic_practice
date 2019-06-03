@@ -2,7 +2,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.options
 from tornado.options import define, options
-from test1.handlers import main, account, chat, service
+from handlers import main, account, chat, service
 
 
 define('port', default='8000', help='Listening port', type=int)

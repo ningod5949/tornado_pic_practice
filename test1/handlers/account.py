@@ -1,4 +1,4 @@
-from test1.utils.account import authenticate
+from utils.account import authenticate
 from .main import Basehandler
 
 

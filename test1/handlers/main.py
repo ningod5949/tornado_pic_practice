@@ -1,8 +1,8 @@
 import logging
 import tornado.web
 from pycket.session import SessionMixin
-from test1.utils.account import HandlerORM
-from test1.utils.photo import UploadImage
+from utils.account import HandlerORM
+from utils.photo import UploadImage
 from models.db import Session
 
 
