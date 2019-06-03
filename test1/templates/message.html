@@ -3,6 +3,13 @@
         {{ chat['username'] }}@{{ chat['created'] }}
     </span>
     :{% module linkify(chat["body"]) %}
+    {% if chat['img_url'] %}
+    <div>
+        <a href="/post/{{ chat['post_id'] }}">
+            <img src="{{ static_url(chat['img_url']) }}" />
+        </a>
+    </div>
+    {% end %}
 {#    <br>#}
 {#    <img src="{{ static_url(chat['img_url]') }}" alt="" />#}
 {#    {% end %}#}

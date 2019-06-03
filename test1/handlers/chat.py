@@ -1,13 +1,19 @@
 import uuid
 from datetime import datetime
+import logging
 from pycket.session import SessionMixin
+from tornado.httpclient import AsyncHTTPClient
 import tornado.websocket
 import tornado.web
 import tornado.escape
+from tornado.ioloop import IOLoop
 from .main import Basehandler
 
 
-def make_data(handler, msg, username):
+logger = logging.getLogger('tudo.log')
+
+
+def make_data(handler, msg, username='system', img_url=None, post_id=None):
     """
     生成用来发送消息的字典数据
     :param handler:
@@ -20,10 +26,12 @@ def make_data(handler, msg, username):
         'body': msg,
         'username': username,
         'created': str(datetime.now()),
+        'img_url': img_url,
+        'post_id': post_id,
     }
-
     chat['html'] = tornado.escape.to_basestring(handler.render_string('message.html', chat=chat))
     return chat
+
 
 class RoomHandler(Basehandler):
     """
@@ -83,6 +91,21 @@ class ChatWSHandler(tornado.websocket.WebSocketHandler, SessionMixin):
         print("got message: {}".format(message))
         parsed = tornado.escape.json_decode(message) # json数据解码
         msg = parsed['body']
+
+        if msg and msg.startswith('http://'):
+            client = AsyncHTTPClient()
+            save_api_url = 'http://127.0.0.1:8000/save?save_url={}&name={}&is_from=room'.format(msg, self.current_user)
+            logger.info(save_api_url)
+            IOLoop.current().spawn_callback(client.fetch,
+                                            save_api_url,
+                                            request_timeout=50)
+            reply_msg = "user {}, url {} is processing".format(
+                self.current_user,
+                msg,
+            )
+            chat = make_data(self, reply_msg)
+            self.write_message(chat)   # 只给当前用户发送
+        else:
         # chat = {
         #     'id': str(uuid.uuid4()),
         #     'body': msg,
@@ -91,12 +114,13 @@ class ChatWSHandler(tornado.websocket.WebSocketHandler, SessionMixin):
         # }
         #
         # chat['html'] =  tornado.escape.to_basestring(self.render_string('message.html', chat = chat))
-        chat = make_data(self, msg, self.current_user)
-        self.update_history(chat)
-        self.send_updates(chat)
+            chat = make_data(self, msg, self.current_user)
+            ChatWSHandler.update_history(chat)
+            ChatWSHandler.send_updates(chat)
         # print(chat['html'])
 
-    def update_history(self, chat):
+    @classmethod
+    def update_history(cls, chat):
         """
         把新消息更新到 history，截取最后20条
         :param chat:
@@ -106,7 +130,8 @@ class ChatWSHandler(tornado.websocket.WebSocketHandler, SessionMixin):
         if len(ChatWSHandler.history) > ChatWSHandler.history_size:
             ChatWSHandler.history = ChatWSHandler.history[-ChatWSHandler.history_size:]
 
-    def send_updates(self, chat):
+    @classmethod
+    def send_updates(cls, chat):
         """
         给每个等待接收的用户发新的消息
         :param chat:

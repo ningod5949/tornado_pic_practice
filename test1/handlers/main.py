@@ -41,7 +41,7 @@ class ExploreHandler(Basehandler):
 class PostHandler(Basehandler):
     def get(self, post_id):
         post = self.orm.get_post(post_id)
-        count = self.orm.count_like_for(post_id)
+        # count = self.orm.count_like_for(post_id)
         # user = post.user
         print('post return')
         if not post:
