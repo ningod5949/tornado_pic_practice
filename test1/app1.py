@@ -1,3 +1,5 @@
+import logging
+
 import tornado.ioloop
 import tornado.web
 import tornado.options
@@ -5,6 +7,7 @@ from tornado.options import define, options
 from handlers import main, account, chat, service
 
 
+logging.basicConfig(level=logging.DEBUG,  format='%(levelname)s -- %(funcName)s: %(message)s')
 define('port', default='8000', help='Listening port', type=int)
 define('debug', default='True', help='Debug mode', type=bool)
 
@@ -54,6 +57,12 @@ class Application(tornado.web.Application):
 
 if __name__ == '__main__':
     tornado.options.parse_command_line()
+    # if options.debug:
+    #     from my_config import HOST
+    # else:
+    #     from prod_config import HOST
+    # application = Application(debug=options.debug, host=HOST)
+
     application = Application(debug=options.debug)
     application.listen(options.port)
     print("Server start on port {}".format(str(options.port)))

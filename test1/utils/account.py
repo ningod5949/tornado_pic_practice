@@ -38,17 +38,14 @@ class HandlerORM:
         post_id = post.id
         return post_id
 
-
     def get_all_posts(self):
         posts = self.db.query(Post).all()
         return posts
-
 
     def get_posts_for(self, username):
         user = self.get_user(username)
         posts = self.db.query(Post).filter_by(user=user).all()
         return posts
-
 
     def get_post(self, post_id):
         """
